@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Pak Sim Data</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(90deg, #141e30, #243b55);
+      background-size: 400% 400%;
+      animation: backgroundAnimate 8s infinite;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    @keyframes backgroundAnimate {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .container {
+      background: linear-gradient(145deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
+      border-radius: 15px;
+      box-shadow: 0 0 30px rgba(0, 255, 255, 0.3);
+      padding: 25px;
+      width: 100%;
+      max-width: 400px;
+      text-align: center;
+      color: white;
+    }
+
+    h1 {
+      font-size: 32px;
+      margin-bottom: 20px;
+      text-shadow: 0 0 10px rgba(255,255,255,0.8);
+    }
+
+    input[type="text"] {
+      width: 80%;
+      padding: 12px;
+      border: 2px solid #fff;
+      border-radius: 10px;
+      background: rgba(255,255,255,0.1);
+      color: white;
+      margin: 10px 0;
+      font-size: 16px;
+    }
+
+    button {
+      background: rgba(255, 0, 0, 0.8);
+      color: white;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      margin-top: 10px;
+      width: 50%;
+      animation: buttonGlow 2s infinite alternate;
+    }
+
+    @keyframes buttonGlow {
+      0% { box-shadow: 0 0 10px rgba(255, 0, 0, 0.5); }
+      100% { box-shadow: 0 0 20px rgba(255, 0, 0, 1); }
+    }
+
+    .result {
+      margin-top: 20px;
+      background: rgba(0,0,0,0.7);
+      padding: 20px;
+      border-radius: 15px;
+      font-size: 14px;
+      text-align: left;
+      white-space: pre-line;
+      display: none;
+    }
+
+    .share-btn {
+      margin-top: 10px;
+      background: linear-gradient(90deg, #25D366, #128C7E);
+      box-shadow: 0 0 10px #25D366;
+      color: white;
+      display: none;
+    }
+
+    .footer {
+      margin-top: 50px;
+      padding: 20px;
+      text-align: center;
+      background: #111;
+      box-shadow: 0 -5px 20px #0ff;
+      width: 100%;
+    }
+
+    .footer h2 {
+      font-size: 1.5rem;
+      color: #0ff;
+      text-shadow: 0 0 10px #0ff;
+      margin-bottom: 10px;
+    }
+
+    .social-links a {
+      display: inline-block;
+      margin: 5px;
+      padding: 10px 15px;
+      color: #fff;
+      background: #0ff;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+      box-shadow: 0 0 15px #0ff;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .social-links a:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 25px #0ff;
+      background: #08f;
+    }
+
+    .developer {
+      margin-top: 15px;
+      font-size: 0.9rem;
+      color: yellow;
+    }
+
+    .developer span {
+      display: block;
+      font-size: 1.8rem;
+      font-family: 'Pacifico', cursive;
+      color: red;
+      text-shadow: 0 0 10px red, 0 0 20px red;
+      margin-top: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>𝗭𝗔𝗟𝗜𝗠 𝗠𝗢𝗗𝗭 𝗦𝗜𝗠 𝗗𝗔𝗧𝗔</h1>
+    <input type="text" id="number" placeholder="Enter mobile number" required />
+    <button onclick="fetchData()">Search</button>
+    <div id="responseBox" class="result"></div>
+    <button id="shareButton" class="share-btn" onclick="shareWhatsApp()">📲 Share on WhatsApp</button>
+  </div>
+
+  <div class="footer">
+    <h2>Join Our Channels</h2>
+    <div class="social-links">
+      <a href="https://t.me/ZALIM_MODZ" target="_blank">Telegram</a>
+      <a href="https://t.me/ZALIM_MODZ" target="_blank">Telegram Channel</a>
+      <a href="https://t.me/nc_ayan" target="_blank">Contact Me</a>
+    </div>
+    <div class="developer">
+      DEVELOPER:
+      <span>ZALIM MODZ</span>
+    </div>
+  </div>
+
+  <script>
+    async function fetchData() {
+      const number = document.getElementById("number").value.trim();
+      const responseBox = document.getElementById("responseBox");
+      const shareButton = document.getElementById("shareButton");
+
+      if (!number) {
+        alert("Please enter a phone number.");
+        return;
+      }
+
+      const url = `https://api.allorigins.win/get?url=${encodeURIComponent(`https://fam-official.serv00.net/sim/api.php?num=${number}`)}`;
+
+      try {
+        const res = await fetch(url);
+        const json = await res.json();
+        const apiData = JSON.parse(json.contents);
+
+        if (apiData.status === "success" && Array.isArray(apiData.data) && apiData.data.length > 0) {
+          const user = apiData.data[0];
+          const content = `
+📞 Mobile: ${user.Mobile || "Not found"}
+👤 Name: ${user.Name || "Not found"}
+🆔 CNIC: ${user.CNIC || "Not found"}
+📍 Address: ${user.Address || "Not found"}
+📶 Operator: ${user.Operator || "Not found"}
+          `;
+          responseBox.innerText = content;
+          responseBox.style.display = "block";
+          shareButton.style.display = "inline-block";
+        } else {
+          responseBox.innerHTML = `<p style="color: yellow;">Data Not Found</p>`;
+          responseBox.style.display = "block";
+          shareButton.style.display = "none";
+        }
+      } catch (e) {
+        responseBox.innerHTML = `<p style="color: red;">Error fetching data.</p>`;
+        responseBox.style.display = "block";
+        shareButton.style.display = "none";
+      }
+    }
+
+    function shareWhatsApp() {
+      const responseBox = document.getElementById("responseBox");
+      const text = encodeURIComponent(responseBox.innerText);
+      const url = `https://wa.me/?text=${text}`;
+      window.open(url, '_blank');
+    }
+  </script>
+</body>
+  </html>
