@@ -1,106 +1,47 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SIM Data Lookup</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            margin: 50px;
-            background-color: #121212;
-            color: #fff;
-        }
-        .container {
-            background: #1e1e1e;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0px 0px 15px cyan;
-            width: 350px;
-            margin: auto;
-        }
-        .container h2 {
-            color: cyan;
-        }
-        input {
-            width: 90%;
-            padding: 12px;
-            margin: 10px 0;
-            border-radius: 5px;
-            border: 1px solid #00ffff;
-            background: #2a2a2a;
-            color: white;
-        }
-        .btn {
-            width: 100%;
-            padding: 10px;
-            background: linear-gradient(to right, cyan, blue);
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-            color: white;
-        }
-        .btn:hover {
-            background: linear-gradient(to right, blue, cyan);
-        }
-        .result-box {
-            background: #111;
-            padding: 15px;
-            margin-top: 20px;
-            border-radius: 10px;
-            box-shadow: 0px 0px 10px cyan;
-            text-align: left;
-        }
-        .copy-btn, .tg-btn {
-            width: 100%;
-            padding: 10px;
-            margin-top: 10px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 14px;
-            color: black;
-        }
-        .copy-btn {
-            background: gold;
-        }
-        .tg-btn {
-            background: #0088cc; /* Telegram Blue */
-            color: white;
-        }
-        .tg-btn:hover {
-            background: #0077b5;
-        }
-        .error {
-            background: #ff4444;
-            box-shadow: 0px 0px 10px red;
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <h2>🔍 Search SIM Details</h2>
-        <form method="POST">
-            <input type="text" name="phone" placeholder="Enter phone number" required>
-            <button type="submit" class="btn">🔎 Get Details</button>
-        </form>
-        <div id="response">
-            <?php echo $result; ?>
-        </div>
-        <a href="https://t.me/Nc_AYAN" target="_blank">
-            <button class="tg-btn">💬 Contact Developer</button>
-        </a>
-    </div>
+async function fetchData() {
+  const number = document.getElementById("number").value.trim();
+  const responseBox = document.getElementById("responseBox");
+  const shareButton = document.getElementById("shareButton");
 
-    <script>
-        function copyData() {
-            let text = document.querySelector(".result-box").innerText;
-            navigator.clipboard.writeText(text).then(() => {
-                alert("Data copied to clipboard!");
-            });
-        }
-    </script>
-</body>
-      </html>
+  if (!number) {
+    alert("Please enter a phone number.");
+    return;
+  }
+
+  const url = `https://api.allorigins.win/get?url=${encodeURIComponent(`https://fam-official.serv00.net/sim/api.php?num=${number}`)}`;
+
+  try {
+    const res = await fetch(url);
+    const json = await res.json();
+    const apiData = JSON.parse(json.contents);
+
+    if (apiData.status === "success" && Array.isArray(apiData.data) && apiData.data.length > 0) {
+      const user = apiData.data[0];
+      const content = `
+📞 Mobile: ${user.Mobile || "Not found"}
+👤 Name: ${user.Name || "Not found"}
+🆔 CNIC: ${user.CNIC || "Not found"}
+📍 Address: ${user.Address || "Not found"}
+📶 Operator: ${user.Operator || "Not found"}
+      `;
+      responseBox.innerText = content;
+      responseBox.style.display = "block";
+      shareButton.style.display = "inline-block";
+    } else {
+      responseBox.innerHTML = `<p style="color: yellow;">Data Not Found</p>`;
+      responseBox.style.display = "block";
+      shareButton.style.display = "none";
+    }
+  } catch (e) {
+    responseBox.innerHTML = `<p style="color: red;">Error fetching data.</p>`;
+    responseBox.style.display = "block";
+    shareButton.style.display = "none";
+  }
+}
+
+function shareWhatsApp() {
+  const responseBox = document.getElementById("responseBox");
+  const text = encodeURIComponent(responseBox.innerText);
+  const url = `https://wa.me/?text=${text}`;
+  window.open(url, '_blank');
+}
