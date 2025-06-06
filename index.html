@@ -1,238 +1,153 @@
-
-
-
-
-
 <!DOCTYPE html>
-
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head><title>
-	Beneficiary Validation
-</title><meta name="viewport" content="width=device-width, initial-scale=1" /><link href="Content/bootstrap-theme.css" rel="stylesheet" /><link href="Content/bootstrap-theme.min.css" rel="stylesheet" /><link href="Content/bootstrap.css" rel="stylesheet" /><link href="Content/bootstrap.min.css" rel="stylesheet" /><link href="Content/Site.css" rel="stylesheet" />
-
-
-
-
-    <!-- css -->
-  
-    <!-- js -->
-    <script type="ec15a1850aa5f21c18afe573-text/javascript" src="Scripts/jquery.js"></script>
-    
-    <script type="ec15a1850aa5f21c18afe573-text/javascript" src="Scripts/bootstrap.min.js"></script>
-     <!-- highcharts -->
-    
-
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IP Location Finder</title>
     <style>
-        .footer {
-            position: fixed;
-            left: 0;
-            bottom: 0;
-            width: 100%;
-            background-color: red;
+        /* Basic page styling */
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background-color: #0d0d0d;
             color: white;
+            margin: 0;
             text-align: center;
         }
-    </style>
-
         
+        /* Glowing effect for elements */
+        @keyframes glow {
+            0% { box-shadow: 0 0 5px #f00, 0 0 10px #f00, 0 0 15px #f00; }
+            50% { box-shadow: 0 0 20px #ff0000, 0 0 30px #ff0000, 0 0 50px #ff0000; }
+            100% { box-shadow: 0 0 5px #f00, 0 0 10px #f00, 0 0 15px #f00; }
+        }
+        
+        @keyframes glowBlue {
+            0% { box-shadow: 0 0 5px #00f, 0 0 10px #00f, 0 0 15px #00f; }
+            50% { box-shadow: 0 0 20px #00aaff, 0 0 30px #00aaff, 0 0 50px #00aaff; }
+            100% { box-shadow: 0 0 5px #00f, 0 0 10px #00f, 0 0 15px #00f; }
+        }
 
-           <script type="ec15a1850aa5f21c18afe573-text/javascript">
+        /* Zoom In/Out animation for text */
+        @keyframes zoomInOut {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
 
-                //function isNumberKey(evt) {
+        /* Container styles */
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #222;
+            border-radius: 8px;
+            animation: glow 3s infinite alternate;
+        }
+        
+        /* Input and button styles */
+        input, button {
+            padding: 12px;
+            margin-top: 10px;
+            width: 100%;
+            box-sizing: border-box;
+            border-radius: 5px;
+            border: none;
+            outline: none;
+            font-size: 16px;
+        }
 
-                //    var charCode = (evt.which) ? evt.which : evt.keyCode;
-                //    if (charCode > 31 && (charCode < 48 || charCode > 57))
-                //        return false;
+        input:focus {
+            animation: glowBlue 3s infinite alternate;
+        }
 
-                //    return true;
-                //}
+        button {
+            background-color: #ff3366;
+            color: white;
+            font-weight: bold;
+            animation: glow 3s infinite alternate;
+        }
 
-                //function CheckCNIC(e) {
+        button:hover {
+            cursor: pointer;
+            background-color: #ff6699;
+        }
 
-                //    if (isNumberKey(e)) {
+        /* Result container */
+        .result {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #333;
+            border-radius: 8px;
+            animation: glow 3s infinite alternate;
+        }
 
-                //        //var txtCNIC = e.currentTarget.value;
-                //        //if (txtCNIC.length > 12) {
-                //        //    return false;
-                //        //}
-                //        //else {
-                //        return true;
-                //        //}
-                //    }
-                //    else
-                //        return false;
+        /* Developed By Musa text styles */
+        .footer-text {
+            margin-top: 30px;
+            font-size: 20px;
+            color: #fff;
+            animation: zoomInOut 3s infinite alternate, glow 3s infinite alternate;
+        }
 
-                //}
-
-                function ValidateOTP(e) {
-                   
-                    if (e.key === "Enter") {
-                        var btnOK = document.getElementById("btnOK");
-                        btnOK.click();
-                    }
-               }
-
-               function Login(e) {
-                   
-                   if (e.key === "Enter") {
-                       var bnLogin = document.getElementById("bnLogin");
-                       bnLogin.click();
-                   }
-               }
-
-           </script>
-
-    
-
+        /* Styling the title */
+        h2 {
+            text-align: center;
+            color: #ff3366;
+        }
+    </style>
 </head>
 <body>
-    <form method="post" action="./" id="form1">
-<div class="aspNetHidden">
-<input type="hidden" name="__EVENTTARGET" id="__EVENTTARGET" value="" />
-<input type="hidden" name="__EVENTARGUMENT" id="__EVENTARGUMENT" value="" />
-<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="SnmGR9GFR1OAuY01FT4zVr5+P/nFQ38tYUnkQ8HRrt94lYBYjZmT01X3yqVDkA/HfwKCOnKRyk0RhJfTQXGsbmKCooAPSoE+PeupBD210vw=" />
-</div>
 
-<script type="ec15a1850aa5f21c18afe573-text/javascript">
-//<![CDATA[
-var theForm = document.forms['form1'];
-if (!theForm) {
-    theForm = document.form1;
-}
-function __doPostBack(eventTarget, eventArgument) {
-    if (!theForm.onsubmit || (theForm.onsubmit() != false)) {
-        theForm.__EVENTTARGET.value = eventTarget;
-        theForm.__EVENTARGUMENT.value = eventArgument;
-        theForm.submit();
-    }
-}
-//]]>
-</script>
+    <div class="container">
+        <h2>𝗜𝗣 𝗗𝗲𝘁𝗮𝗶𝗹 𝗙𝗶𝗻𝗱𝗲𝗿</h2>
+        <input type="text" id="ipAddress" placeholder="Enter IP address (e.g., 8.8.8.8)">
+        <button onclick="getIPInfo()">𝗦𝘂𝗯𝗺𝗶𝘁</button>
 
-
-<script src="/WebResource.axd?d=pynGkmcFUV13He1Qd6_TZCi9LjBV4JtcJymhpdiYzj5PgblDVjMWNSqibTXn79Q1T4mmTAW6ti4oIlVdVip7kw2&amp;t=638286259360000000" type="ec15a1850aa5f21c18afe573-text/javascript"></script>
-
-
-<script src="Scripts/WebForms/MsAjax/MicrosoftAjax.js" type="ec15a1850aa5f21c18afe573-text/javascript"></script>
-<script src="Scripts/WebForms/MsAjax/MicrosoftAjaxWebForms.js" type="ec15a1850aa5f21c18afe573-text/javascript"></script>
-<script src="/ScriptResource.axd?d=eE6V8nDbUVn0gtG6hKNX_M24xRSz-R1qAt1r7YLHBTXxnA1l7TKlVHSt0qQ742GVNMUpqXFncuifV2c7apOqYxLFs8FZB1JKsXbJ2XS72TSaPBMEq8U88bU0g6rvRwXh0&amp;t=17b84382" type="ec15a1850aa5f21c18afe573-text/javascript"></script>
-<script src="/ScriptResource.axd?d=mcAASOSteirJeuV-3by3UTNPWh435UeWy5z7GE7-MZKTKj55LvR8-EeXNj9BzXf36---b_ZGXNyBe1KYX9MmWi4fabpcLkdzJx_CjDFqnug1&amp;t=17b84382" type="ec15a1850aa5f21c18afe573-text/javascript"></script>
-<script src="/ScriptResource.axd?d=jwf4VSQi7LeShc44FJ-gAcYC4fnAhAAD6P1o5MGOblNT6qAjVjgxN1S4A89PUTRxQSjOq-XOk3yqwmz0kHlvNRxDYURq6rbu0VVlf6SjU9akaXLgpRG63rfkBQWdmOCY0&amp;t=17b84382" type="ec15a1850aa5f21c18afe573-text/javascript"></script>
-<script src="/ScriptResource.axd?d=nai7mGcYyE2dix_TwveLDfdoQWlcr7F_uejy-yjOXBua7IVPrUznbE-mHE8ogakncMNptqk5eAZCFB9wFouGiTttA3Wbmcr6mQJITcFBCRf4UzHPyOLuTZf6_ddWNDhK0&amp;t=17b84382" type="ec15a1850aa5f21c18afe573-text/javascript"></script>
-<script src="/ScriptResource.axd?d=yDT7ulzE00Yqzs5zd38bJwW2JaXjwMerpMf7RB-B-O7hVmmaZ92Jq4r1NP8zFyJz5ncFIQa4kFA1N-uy6aXhMx54IIpkK_h7d5AHrZnqiNxpJEqkaGFi57bcfG1e8EhU0&amp;t=17b84382" type="ec15a1850aa5f21c18afe573-text/javascript"></script>
-<script src="/ScriptResource.axd?d=HEFpVKbnoeQjkjHkFKu3MFZv2NiLkXRuI9mEnCLwavMmlSvN-U5NevR3G6ib0ILIurLz78M1iUDnaU8cIXVi9cxmKt8eX1ra-x2_pozhQGSei4LHrMN2T5dfMKkGNTF_0&amp;t=17b84382" type="ec15a1850aa5f21c18afe573-text/javascript"></script>
-<script src="/ScriptResource.axd?d=5ib3lCcyinHeLQmkwMF7Enhql9HYlioJd3kCP93uYz1rgpLIRLqF74g3_NKrZyysl9EijBbzp2oVkGN-LJL0OhsiowyPHtBUIKyCWAl-kTSXROCNUFwFAq6chBRgE-gX0&amp;t=17b84382" type="ec15a1850aa5f21c18afe573-text/javascript"></script>
-<script src="/ScriptResource.axd?d=iON9Jxe8QCRam1nkdNLgkdwPCyS5h9bCePmBkBKMWHB8a66M7xS3M1uZqPeF19tId-EieRS7QNOxEirFNv-WtW9OU6j0w7E3jGIZzS8WaVwWoJzd92ePJGQs8cePBwiH0&amp;t=17b84382" type="ec15a1850aa5f21c18afe573-text/javascript"></script>
-<script src="/ScriptResource.axd?d=xGmPTKfsNy0_1Sr5I58kO2P7pGXWHtfW8IgUSmFjEYH_HF-KDbz0cude8qVmGhp_cUVWPFffFll9FAgflyycXwy-y7UprVYPv5HN3i_YT9jww47l6h8lpgYXcfh7TmbS0&amp;t=17b84382" type="ec15a1850aa5f21c18afe573-text/javascript"></script>
-<script src="/ScriptResource.axd?d=LQ1q2RBSthBAZhliMjtG_3_d_Q-JccBgbzcTbtijd24VPb5ZX0e5kinUi3bxwP5z_Hf90paDyw3iLkQrIklv8jNBZME9i09YVxOMw5ZwdoVNmRL8tY7OUA54FHBo4GkP0&amp;t=17b84382" type="ec15a1850aa5f21c18afe573-text/javascript"></script>
-<script src="/ScriptResource.axd?d=VOYD8Xe7kQA0lniBYXVpAvosaSnxAbWH2Ee1Q6ko7gR8YiMdzrLGQNLKX6qEKjV6La85-_ErI9UBTqcXEInD3ikmCZ0Bwi5PtCk-Xq6dqrWHN7UojYxZ7ZUqeGyKCNMP0&amp;t=17b84382" type="ec15a1850aa5f21c18afe573-text/javascript"></script>
-<script src="/ScriptResource.axd?d=hOeJu0xhC-uW6Gf8ooKdXsQ-GmSKMzr-xREXFUGJyiHwpcSAohbNT2vxfYiPfuJVeqEnU-vqFVe90VlM7T9QbtoObNBtIVHNGqVa4j8t7DlyvOYTy4h7TFBLzX1mttIT0&amp;t=17b84382" type="ec15a1850aa5f21c18afe573-text/javascript"></script>
-<script src="/ScriptResource.axd?d=XlV9GqTk6b5uqDuL38kZ4FRfKkC6mUDtWYm6TJSrjvF1VbLI8KZ38thAYFSJdcL-JfefxlmhYrstZO9lNT6ccIA__8fpBJ_UNzshsyhIZvDRv8FP962iEPwAnX1vqDVX0&amp;t=17b84382" type="ec15a1850aa5f21c18afe573-text/javascript"></script>
-<div class="aspNetHidden">
-
-	<input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="AC8BCDF4" />
-	<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="RWsmDgWkKbKfRVrDpH6pRnwhmN6VeobXkHRBVHW8EShBbloW8k1dC6A2XpA5BrMxu/f0XIspbLrYyK4QPiZ5bcUdxvdAX5JWfTkhjGVoV4vWNkjmNUwyVjJmr9IwgdA+I7EJDWqBJVYaJYLH4v3MmVH3PapppsrrPVjIlOwiXgZEAvRWHNas3OfU92082bWaTqoAJSPB7hWLNlvE8f2Emg==" />
-</div>
-
-           <script type="ec15a1850aa5f21c18afe573-text/javascript">
-//<![CDATA[
-Sys.WebForms.PageRequestManager._initialize('ScriptManager1', 'form1', [], [], [], 90, '');
-//]]>
-</script>
-
-        <div class="container">
-
-            <div class="row">
-                <div class="col-sm-12">
-                    <div class="text-center" style="margin-bottom: 0">
-                        <img src="Images/Ehsaas.png" alt="cct" width="100%" />
-                    </div>
-                </div>
-            </div>
-
-            <div class="container-fluid text-center">
-                <div class="row content">
-                    <div class="col-sm-2 sidenav">
-                    </div>
-                    <div class="col-sm-12 text-left">
-                        <h1>Login</h1>
-                        <hr />
-
-                        
-
-                        <div class="row">
-                            <div class="col-sm-4"></div>
-                            <div class="col-sm-4">
-                                Login ID
-         
-                                <input name="txtUsername" type="text" id="txtUsername" placeholder="Enter Login ID" class="form-control" autocomplete="off" data-toggle="tooltip" title="Type Login ID" onkeypress="if (!window.__cfRLUnblockHandlers) return false; return Login(event)" data-cf-modified-ec15a1850aa5f21c18afe573-="" />
-
-                                <br />
-                                Password 
-                            <input name="txtPassword" type="password" id="txtPassword" placeholder="Enter Password" class="form-control" autocomplete="off" data-toggle="tooltip" title="Type Password" onkeypress="if (!window.__cfRLUnblockHandlers) return false; return Login(event)" data-cf-modified-ec15a1850aa5f21c18afe573-="" />
-
-                                <br />
-                                <div style="text-align: center;     margin-right: 70px;">
-                                    <input type="button" name="bnLogin" value="Login" onclick="if (!window.__cfRLUnblockHandlers) return false; javascript:__doPostBack(&#39;bnLogin&#39;,&#39;&#39;)" id="bnLogin" class="btn btn-secondary" data-cf-modified-ec15a1850aa5f21c18afe573-="" />
-                                </div>
-
-                            </div>
-                        </div>
-                        <br />
-                    </div>
-                    <div class="col-sm-2 sidenav">
-                    </div>
-                </div>
-            </div>
-           <div class="footer">
-                <footer class="container-fluid text-center" style="background-color: black; color: white; padding: 15px;">
-                    <p>&copy; 2025 - Beneficiary Validation</p> 
-                    <span id="lblip"></span>
-                </footer>
-            </div>
+        <div class="result" id="result" style="display: none;">
+            <!-- Result will be shown here -->
         </div>
+    </div>
 
+    <div class="footer-text">
+        𝗗𝗲𝘃𝗲𝗹𝗼𝗽𝗲𝗱 𝗕𝘆 𝗠𝘂𝘀𝗮
+    </div>
 
-        
-     <span id="lblHidden"></span>
-    
-    
-    
-            <div class="alert alert-block  fade in" style="border-color: black !important; background-color:#000000 !important; width:30%;" id="divPopUpSuccess"  >
-									
-					<div class="row"  id="divEnrollmentBenefits">
-                        <div id="divOTP" class="jumbotron col-md-12">
-                            Please enter OTP received on your registered mobile number : <input name="txtOTP" type="text" autocomplete="off" id="txtOTP" onkeypress="if (!window.__cfRLUnblockHandlers) return false; return ValidateOTP(event)" data-cf-modified-ec15a1850aa5f21c18afe573-="" />
-                            <br />
-                            <span id="lblMSG" style="color:red;"></span>
-                        </div>
+    <script>
+        function getIPInfo() {
+            let ip = document.getElementById("ipAddress").value;
+            if (ip === "") {
+                alert("Please enter an IP address");
+                return;
+            }
 
-                       
-                           
-                        
-       
-                    </div>
+            // IP Geolocation API URL
+            let url = `https://ipinfo.io/${ip}/json`;
 
-                	<div id="buttons">
-                        <div id="DivbtnOK" class="buttonOK" style="float:right"><input type="button" name="btnOK" value="OK" onclick="if (!window.__cfRLUnblockHandlers) return false; javascript:__doPostBack(&#39;btnOK&#39;,&#39;&#39;)" id="btnOK" class="btn green" data-cf-modified-ec15a1850aa5f21c18afe573-="" /> 
-                                              
-                        </div>
-                    </div>
-			</div> 
-          
+            // Fetch API call to get IP info
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    // Show the result
+                    let resultDiv = document.getElementById("result");
+                    resultDiv.style.display = 'block';
+                    resultDiv.innerHTML = `
+                        <h3>IP Details:</h3>
+                        <p><strong>IP:</strong> ${data.ip}</p>
+                        <p><strong>City:</strong> ${data.city}</p>
+                        <p><strong>Region:</strong> ${data.region}</p>
+                        <p><strong>Country:</strong> ${data.country}</p>
+                        <p><strong>Location:</strong> ${data.loc}</p>
+                        <p><strong>Organization:</strong> ${data.org}</p>
+                    `;
+                    // Apply glowing effect on result container
+                    resultDiv.style.animation = 'glow 3s infinite alternate';
+                })
+                .catch(error => {
+                    alert("Error fetching data. Please try again.");
+                });
+        }
+    </script>
 
-
-    
-
-<script type="ec15a1850aa5f21c18afe573-text/javascript">
-//<![CDATA[
-Sys.Application.add_init(function() {
-    $create(Sys.Extended.UI.ModalPopupBehavior, {"backgroundCssClass":"modalBackground","dynamicServicePath":"/wfLogin.aspx","id":"SuccessPopUp","popupControlID":"divPopUpSuccess"}, null, null, $get("lblHidden"));
-});
-//]]>
-</script>
-</form>
-
-
-<script src="/cdn-cgi/scripts/7d0fa10a/cloudflare-static/rocket-loader.min.js" data-cf-settings="ec15a1850aa5f21c18afe573-|49" defer></script></body>
+</body>
 </html>
