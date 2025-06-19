@@ -1,1 +1,263 @@
-error
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Facebook Report Tool</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      background-color: black;
+      color: #00FF00;
+      font-family: 'Courier New', monospace;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .header {
+      font-size: 24px;
+      font-weight: bold;
+      margin-top: 20px;
+      text-shadow: 0 0 10px #00ff00;
+    }
+
+    .channel-short {
+      font-size: 20px;
+      margin-top: 10px;
+      color: #00ffcc;
+      font-weight: bold;
+    }
+
+    input, select, button, textarea {
+      background-color: black;
+      color: #00FF00;
+      border: 1px solid #00FF00;
+      border-radius: 5px;
+      padding: 10px;
+      margin: 10px 0;
+      width: 90%;
+      max-width: 500px;
+      font-family: 'Courier New', monospace;
+    }
+
+    button {
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .output-box {
+      margin-top: 15px;
+      background-color: #111;
+      padding: 10px;
+      border: 1px solid #00ff00;
+      word-break: break-word;
+    }
+
+    .tips {
+      margin-top: 30px;
+      text-align: left;
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .dev-link {
+      margin-top: 30px;
+      display: inline-block;
+      background-color: #FF0000;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 10px;
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    .reporting-box {
+      margin-top: 20px;
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+      background-color: #111;
+      color: #0f0;
+      padding: 10px;
+      border: 1px solid #0f0;
+      font-size: 14px;
+      height: 200px;
+      overflow-y: auto;
+      display: none;
+    }
+
+    .status-message {
+      color: #00ff00;
+      font-weight: bold;
+      margin-top: 10px;
+    }
+
+    /* Password screen styles */
+    #passwordScreen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: black;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+    }
+
+    #passwordScreen h2 {
+      color: #00FF00;
+      font-size: 22px;
+      margin-bottom: 20px;
+      text-shadow: 0 0 10px #00ff00;
+    }
+
+    #unlockButton {
+      width: auto;
+      margin-top: 10px;
+    }
+
+    @media only screen and (max-width: 600px) {
+      .header {
+        font-size: 20px;
+      }
+      .channel-short {
+        font-size: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Password Protection Screen -->
+<div id="passwordScreen">
+  <h2>Enter Password</h2>
+  <input type="password" id="passwordInput" placeholder="Enter your password">
+  <button id="unlockButton" onclick="checkPassword()">Unlock</button>
+</div>
+
+<!-- Main App Content -->
+<div id="mainContent" style="display:none;">
+
+  <div class="header">💀 ZALIM MODZ 💀</div>
+  <div class="channel-short"> PROGRAM TO WAR GIA ♥️ </div>
+
+  <h2>Scam Report Tool</h2>
+
+  <input type="text" id="fbLink" placeholder="Profile Link">
+
+  <select id="scamType">
+    <option value="Fake Profile">Fake Profile</option>
+    <option value="Impersonation">Impersonation</option>
+    <option value="Scam/Spam">Scam / Spam</option>
+  </select>
+
+  <button onclick="generateReport()">Generate Report</button>
+
+  <div class="output-box" id="reportOutput"></div>
+  <button onclick="copyToClipboard()">Copy Message</button>
+  <br>
+  <a id="fbReportLink" href="https://www.facebook.com/help/contact/295309487309948" target="_blank">
+    <button>Open FB Report Page</button>
+  </a>
+
+  <div class="tips">
+    <h4>⚠️ Tips:</h4>
+    <ul>
+      <li>Report only real scams</li>
+      <li>Use "Scam" or "Fake Account" in report</li>
+      <li>Paste message in description</li>
+      <li>Collect screenshots if possible</li>
+    </ul>
+  </div>
+
+  <a class="dev-link" href="tg://resolve?domain=ALONELIFEISALLWYSBEST" target="_blank">👨‍💻 Developer</a>
+
+  <div class="reporting-box" id="reportingBox"></div>
+  <button style="display:none" onclick="stopReporting()" id="stopBtn">🛑 Stop Reporting</button>
+  <div class="status-message" id="statusMsg"></div>
+</div>
+
+<script>
+  function checkPassword() {
+    const correctPassword = "ZALIM MODZ";
+    const enteredPassword = document.getElementById("passwordInput").value;
+
+    if (enteredPassword === correctPassword) {
+      document.getElementById("passwordScreen").style.display = "none";
+      document.getElementById("mainContent").style.display = "block";
+    } else {
+      alert("❌ Incorrect password. Try again.");
+    }
+  }
+
+  let reportingInterval;
+  let reportCount = 0;
+  const maxReports = 50;
+
+  function generateReport() {
+    const fbLink = document.getElementById("fbLink").value.trim();
+    const scamType = document.getElementById("scamType").value;
+
+    if (!fbLink.startsWith("http")) {
+      alert("Please enter a valid Facebook profile link.");
+      return;
+    }
+
+    let reason = "";
+    if (scamType === "Fake Profile") reason = "Reason: This account appears to be fake.";
+    else if (scamType === "Impersonation") reason = "Reason: Pretending to be someone else.";
+    else reason = "Reason: Spamming or scamming people.";
+
+    const reportText = `${fbLink}\n${reason}`;
+    document.getElementById("reportOutput").textContent = reportText;
+
+    startFakeReporting();
+  }
+
+  function copyToClipboard() {
+    const output = document.getElementById("reportOutput").textContent;
+    if (!output) return alert("Please generate a report first.");
+    navigator.clipboard.writeText(output)
+      .then(() => alert("Message copied to clipboard."))
+      .catch(err => alert("Failed to copy."));
+  }
+
+  function startFakeReporting() {
+    const reportingBox = document.getElementById("reportingBox");
+    const stopBtn = document.getElementById("stopBtn");
+    const statusMsg = document.getElementById("statusMsg");
+
+    reportCount = 0;
+    reportingBox.innerHTML = "";
+    statusMsg.innerHTML = "";
+    reportingBox.style.display = "block";
+    stopBtn.style.display = "inline-block";
+
+    reportingInterval = setInterval(() => {
+      reportCount++;
+      // Changed "fake report" to "report" here
+      const message = `🚀 Sending report #${reportCount}`;
+      reportingBox.innerHTML += message + "<br/>";
+      reportingBox.scrollTop = reportingBox.scrollHeight;
+
+      if (reportCount >= maxReports) {
+        clearInterval(reportingInterval);
+        stopBtn.style.display = "none";
+        reportingBox.innerHTML += "<br/><strong>✅ Report successfully submitted.</strong><br/>";
+        statusMsg.innerHTML = "🚫 The reported account will be blocked within 24 hours.";
+      }
+    }, 6000); // slower reporting speed
+  }
+
+  function stopReporting() {
+    clearInterval(reportingInterval);
+    document.getElementById("stopBtn").style.display = "none";
+    document.getElementById("reportingBox").innerHTML += "<br/><strong>⛔ Reporting manually stopped by user.</strong>";
+  }
+</script>
+
+</body>
+  </html>
