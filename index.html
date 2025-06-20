@@ -1,263 +1,218 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Facebook Report Tool</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Pak Sim Data</title>
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+
     body {
-      background-color: black;
-      color: #00FF00;
-      font-family: 'Courier New', monospace;
-      padding: 20px;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(90deg, #141e30, #243b55);
+      background-size: 400% 400%;
+      animation: backgroundAnimate 8s infinite;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    @keyframes backgroundAnimate {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .container {
+      background: linear-gradient(145deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
+      border-radius: 15px;
+      box-shadow: 0 0 30px rgba(0, 255, 255, 0.3);
+      padding: 25px;
+      width: 100%;
+      max-width: 400px;
       text-align: center;
+      color: white;
     }
 
-    .header {
-      font-size: 24px;
-      font-weight: bold;
-      margin-top: 20px;
-      text-shadow: 0 0 10px #00ff00;
+    h1 {
+      font-size: 32px;
+      margin-bottom: 20px;
+      text-shadow: 0 0 10px rgba(255,255,255,0.8);
     }
 
-    .channel-short {
-      font-size: 20px;
-      margin-top: 10px;
-      color: #00ffcc;
-      font-weight: bold;
-    }
-
-    input, select, button, textarea {
-      background-color: black;
-      color: #00FF00;
-      border: 1px solid #00FF00;
-      border-radius: 5px;
-      padding: 10px;
+    input[type="text"] {
+      width: 80%;
+      padding: 12px;
+      border: 2px solid #fff;
+      border-radius: 10px;
+      background: rgba(255,255,255,0.1);
+      color: white;
       margin: 10px 0;
-      width: 90%;
-      max-width: 500px;
-      font-family: 'Courier New', monospace;
+      font-size: 16px;
     }
 
     button {
-      font-weight: bold;
-      cursor: pointer;
-    }
-
-    .output-box {
-      margin-top: 15px;
-      background-color: #111;
-      padding: 10px;
-      border: 1px solid #00ff00;
-      word-break: break-word;
-    }
-
-    .tips {
-      margin-top: 30px;
-      text-align: left;
-      max-width: 500px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    .dev-link {
-      margin-top: 30px;
-      display: inline-block;
-      background-color: #FF0000;
+      background: rgba(255, 0, 0, 0.8);
       color: white;
-      padding: 10px 20px;
-      border-radius: 10px;
-      font-weight: bold;
-      text-decoration: none;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      margin-top: 10px;
+      width: 50%;
+      animation: buttonGlow 2s infinite alternate;
     }
 
-    .reporting-box {
+    @keyframes buttonGlow {
+      0% { box-shadow: 0 0 10px rgba(255, 0, 0, 0.5); }
+      100% { box-shadow: 0 0 20px rgba(255, 0, 0, 1); }
+    }
+
+    .result {
       margin-top: 20px;
-      max-width: 500px;
-      margin-left: auto;
-      margin-right: auto;
-      background-color: #111;
-      color: #0f0;
-      padding: 10px;
-      border: 1px solid #0f0;
+      background: rgba(0,0,0,0.7);
+      padding: 20px;
+      border-radius: 15px;
       font-size: 14px;
-      height: 200px;
-      overflow-y: auto;
+      text-align: left;
+      white-space: pre-line;
       display: none;
     }
 
-    .status-message {
-      color: #00ff00;
-      font-weight: bold;
+    .share-btn {
       margin-top: 10px;
+      background: linear-gradient(90deg, #25D366, #128C7E);
+      box-shadow: 0 0 10px #25D366;
+      color: white;
+      display: none;
     }
 
-    /* Password screen styles */
-    #passwordScreen {
-      position: fixed;
-      top: 0;
-      left: 0;
+    .footer {
+      margin-top: 50px;
+      padding: 20px;
+      text-align: center;
+      background: #111;
+      box-shadow: 0 -5px 20px #0ff;
       width: 100%;
-      height: 100%;
-      background-color: black;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      z-index: 9999;
     }
 
-    #passwordScreen h2 {
-      color: #00FF00;
-      font-size: 22px;
-      margin-bottom: 20px;
-      text-shadow: 0 0 10px #00ff00;
+    .footer h2 {
+      font-size: 1.5rem;
+      color: #0ff;
+      text-shadow: 0 0 10px #0ff;
+      margin-bottom: 10px;
     }
 
-    #unlockButton {
-      width: auto;
-      margin-top: 10px;
+    .social-links a {
+      display: inline-block;
+      margin: 5px;
+      padding: 10px 15px;
+      color: #fff;
+      background: #0ff;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+      box-shadow: 0 0 15px #0ff;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
 
-    @media only screen and (max-width: 600px) {
-      .header {
-        font-size: 20px;
-      }
-      .channel-short {
-        font-size: 16px;
-      }
+    .social-links a:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 25px #0ff;
+      background: #08f;
+    }
+
+    .developer {
+      margin-top: 15px;
+      font-size: 0.9rem;
+      color: yellow;
+    }
+
+    .developer span {
+      display: block;
+      font-size: 1.8rem;
+      font-family: 'Pacifico', cursive;
+      color: red;
+      text-shadow: 0 0 10px red, 0 0 20px red;
+      margin-top: 5px;
     }
   </style>
 </head>
 <body>
-
-<!-- Password Protection Screen -->
-<div id="passwordScreen">
-  <h2>Enter Password</h2>
-  <input type="password" id="passwordInput" placeholder="Enter your password">
-  <button id="unlockButton" onclick="checkPassword()">Unlock</button>
-</div>
-
-<!-- Main App Content -->
-<div id="mainContent" style="display:none;">
-
-  <div class="header">💀 ZALIM MODZ 💀</div>
-  <div class="channel-short"> PROGRAM TO WAR GIA ♥️ </div>
-
-  <h2>Scam Report Tool</h2>
-
-  <input type="text" id="fbLink" placeholder="Profile Link">
-
-  <select id="scamType">
-    <option value="Fake Profile">Fake Profile</option>
-    <option value="Impersonation">Impersonation</option>
-    <option value="Scam/Spam">Scam / Spam</option>
-  </select>
-
-  <button onclick="generateReport()">Generate Report</button>
-
-  <div class="output-box" id="reportOutput"></div>
-  <button onclick="copyToClipboard()">Copy Message</button>
-  <br>
-  <a id="fbReportLink" href="https://www.facebook.com/help/contact/295309487309948" target="_blank">
-    <button>Open FB Report Page</button>
-  </a>
-
-  <div class="tips">
-    <h4>⚠️ Tips:</h4>
-    <ul>
-      <li>Report only real scams</li>
-      <li>Use "Scam" or "Fake Account" in report</li>
-      <li>Paste message in description</li>
-      <li>Collect screenshots if possible</li>
-    </ul>
+  <div class="container">
+    <h1>𝗣𝗮𝗸 𝗦𝗶𝗺 𝗗𝗮𝘁𝗮</h1>
+    <input type="text" id="number" placeholder="Enter mobile number" required />
+    <button onclick="fetchData()">Search</button>
+    <div id="responseBox" class="result"></div>
+    <button id="shareButton" class="share-btn" onclick="shareWhatsApp()">📲 Share on WhatsApp</button>
   </div>
 
-  <a class="dev-link" href="tg://resolve?domain=ALONELIFEISALLWYSBEST" target="_blank">👨‍💻 Developer</a>
+  <div class="footer">
+    <h2>Join Our Channels</h2>
+    <div class="social-links">
+      <a href="https://t.me/ZALIM_MODZ" target="_blank">Telegram</a>
+      <a href="https://whatsapp.com/channel/0029VaqyldOC6ZvZ6uSVmg2q" target="_blank">Whatsapp Channel</a>
+      <a href="https://t.me/ZALIM_MODZ" target="_blank">whatsapp Me</a>
+    </div>
+    <div class="developer">
+      DEVELOPER:
+      <span>ZALIM MODZ OFFICIAL</span>
+    </div>
+  </div>
 
-  <div class="reporting-box" id="reportingBox"></div>
-  <button style="display:none" onclick="stopReporting()" id="stopBtn">🛑 Stop Reporting</button>
-  <div class="status-message" id="statusMsg"></div>
-</div>
+  <script>
+    async function fetchData() {
+      const number = document.getElementById("number").value.trim();
+      const responseBox = document.getElementById("responseBox");
+      const shareButton = document.getElementById("shareButton");
 
-<script>
-  function checkPassword() {
-    const correctPassword = "ZALIM MODZ";
-    const enteredPassword = document.getElementById("passwordInput").value;
-
-    if (enteredPassword === correctPassword) {
-      document.getElementById("passwordScreen").style.display = "none";
-      document.getElementById("mainContent").style.display = "block";
-    } else {
-      alert("❌ Incorrect password. Try again.");
-    }
-  }
-
-  let reportingInterval;
-  let reportCount = 0;
-  const maxReports = 50;
-
-  function generateReport() {
-    const fbLink = document.getElementById("fbLink").value.trim();
-    const scamType = document.getElementById("scamType").value;
-
-    if (!fbLink.startsWith("http")) {
-      alert("Please enter a valid Facebook profile link.");
-      return;
-    }
-
-    let reason = "";
-    if (scamType === "Fake Profile") reason = "Reason: This account appears to be fake.";
-    else if (scamType === "Impersonation") reason = "Reason: Pretending to be someone else.";
-    else reason = "Reason: Spamming or scamming people.";
-
-    const reportText = `${fbLink}\n${reason}`;
-    document.getElementById("reportOutput").textContent = reportText;
-
-    startFakeReporting();
-  }
-
-  function copyToClipboard() {
-    const output = document.getElementById("reportOutput").textContent;
-    if (!output) return alert("Please generate a report first.");
-    navigator.clipboard.writeText(output)
-      .then(() => alert("Message copied to clipboard."))
-      .catch(err => alert("Failed to copy."));
-  }
-
-  function startFakeReporting() {
-    const reportingBox = document.getElementById("reportingBox");
-    const stopBtn = document.getElementById("stopBtn");
-    const statusMsg = document.getElementById("statusMsg");
-
-    reportCount = 0;
-    reportingBox.innerHTML = "";
-    statusMsg.innerHTML = "";
-    reportingBox.style.display = "block";
-    stopBtn.style.display = "inline-block";
-
-    reportingInterval = setInterval(() => {
-      reportCount++;
-      // Changed "fake report" to "report" here
-      const message = `🚀 Sending report #${reportCount}`;
-      reportingBox.innerHTML += message + "<br/>";
-      reportingBox.scrollTop = reportingBox.scrollHeight;
-
-      if (reportCount >= maxReports) {
-        clearInterval(reportingInterval);
-        stopBtn.style.display = "none";
-        reportingBox.innerHTML += "<br/><strong>✅ Report successfully submitted.</strong><br/>";
-        statusMsg.innerHTML = "🚫 The reported account will be blocked within 24 hours.";
+      if (!number) {
+        alert("Please enter a phone number.");
+        return;
       }
-    }, 6000); // slower reporting speed
-  }
 
-  function stopReporting() {
-    clearInterval(reportingInterval);
-    document.getElementById("stopBtn").style.display = "none";
-    document.getElementById("reportingBox").innerHTML += "<br/><strong>⛔ Reporting manually stopped by user.</strong>";
-  }
-</script>
+      const url = `https://api.allorigins.win/get?url=${encodeURIComponent(`https://fam-official.serv00.net/sim/api.php?num=${number}`)}`;
 
+      try {
+        const res = await fetch(url);
+        const json = await res.json();
+        const apiData = JSON.parse(json.contents);
+
+        if (apiData.status === "success" && Array.isArray(apiData.data) && apiData.data.length > 0) {
+          const user = apiData.data[0];
+          const content = `
+📞 Mobile: ${user.Mobile || "Not found"}
+👤 Name: ${user.Name || "Not found"}
+🆔 CNIC: ${user.CNIC || "Not found"}
+📍 Address: ${user.Address || "Not found"}
+📶 Operator: ${user.Operator || "Not found"}
+          `;
+          responseBox.innerText = content;
+          responseBox.style.display = "block";
+          shareButton.style.display = "inline-block";
+        } else {
+          responseBox.innerHTML = `<p style="color: yellow;">Data Not Found</p>`;
+          responseBox.style.display = "block";
+          shareButton.style.display = "none";
+        }
+      } catch (e) {
+        responseBox.innerHTML = `<p style="color: red;">Error fetching data.</p>`;
+        responseBox.style.display = "block";
+        shareButton.style.display = "none";
+      }
+    }
+
+    function shareWhatsApp() {
+      const responseBox = document.getElementById("responseBox");
+      const text = encodeURIComponent(responseBox.innerText);
+      const url = `https://wa.me/?text=${text}`;
+      window.open(url, '_blank');
+    }
+  </script>
 </body>
-  </html>
+</html>
