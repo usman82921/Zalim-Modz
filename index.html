@@ -1,3 +1,130 @@
-this website is temporary of coming soon polish 
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="utf-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 Not Found</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Courier New', Courier, monospace;
+        }
 
-joint Telegram @zalim modz
+        body {
+            background-color: #000;
+            color: #00ff00;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .container {
+            text-align: center;
+        }
+
+        .glitch {
+            font-size: 120px;
+            font-weight: bold;
+            color: #00ff00;
+            position: relative;
+            animation: glitch 1s infinite;
+        }
+
+        .glitch::before, .glitch::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            color: #00ff00;
+            background: transparent;
+            overflow: hidden;
+            clip: rect(0, 900px, 0, 0);
+        }
+
+        .glitch::before {
+            left: 2px;
+            text-shadow: -2px 0 #ff0000;
+            animation: glitchTop 0.5s infinite linear alternate-reverse;
+        }
+
+        .glitch::after {
+            left: -2px;
+            text-shadow: -2px 0 #0000ff;
+            animation: glitchBottom 0.5s infinite linear alternate-reverse;
+        }
+
+        .text {
+            font-size: 18px;
+            color: #00ff00;
+            opacity: 0.8;
+            margin-top: 10px;
+        }
+
+        a {
+            color: #00ff00;
+            text-decoration: underline;
+        }
+
+        @keyframes glitch {
+            0%, 100% {
+                transform: translate(0);
+            }
+            20% {
+                transform: translate(-2px, 2px);
+            }
+            40% {
+                transform: translate(-2px, -2px);
+            }
+            60% {
+                transform: translate(2px, 2px);
+            }
+            80% {
+                transform: translate(2px, -2px);
+            }
+        }
+
+        @keyframes glitchTop {
+            0% {
+                clip: rect(0, 999px, 5px, 0);
+            }
+            50% {
+                clip: rect(0, 999px, 15px, 0);
+            }
+            100% {
+                clip: rect(0, 999px, 5px, 0);
+            }
+        }
+
+        @keyframes glitchBottom {
+            0% {
+                clip: rect(0, 999px, 5px, 0);
+            }
+            50% {
+                clip: rect(0, 999px, 10px, 0);
+            }
+            100% {
+                clip: rect(0, 999px, 5px, 0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="glitch" data-text="404">404</h1>
+        <p class="text">Oops! The page you are looking for does not exist.</p>
+           </div>
+    <script>
+        // Flashing effect for the "Not Found" message
+        const text = document.querySelectorAll('.text');
+        setInterval(() => {
+            text.forEach(item => {
+                item.style.opacity = item.style.opacity === '1' ? '0.8' : '1';
+            });
+        }, 500);
+    </script>
+</body>
+  </html>
